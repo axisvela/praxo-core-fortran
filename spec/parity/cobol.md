@@ -1,0 +1,81 @@
+# COBOL Parity
+
+- Tier: core
+- SPEC_VERSION: 0.2.0
+
+Released native Core. All 63 vectors in eleven groups, native agent tests,
+JSON tests, contract boundary tests, tooling tests, and the API declaration
+snapshot pass locally. The remote `cobol-conformance` job checks these;
+`cobol/v0.3.0` is the released tag; it adds the middleware, lifecycle,
+cancellation, streaming, SSE, and batch-dispatch surface. `partial` does not
+claim every optional Go hook, provider adapter, or full model surface. See `language/cobol/README.md` for bounded JSON, pattern,
+path-policy, plugin, and middleware behavior.
+
+| Go symbol | COBOL symbol | Status | Phase |
+| --- | --- | --- | --- |
+| `model.Model` | model callback program | partial | P1 |
+| `model.Message` | `px-messages` in `history.cpy` | partial | P1 |
+| `model.Request` | `px-session` callback input | partial | P1 |
+| `model.Response` | `px-response` | partial | P1 |
+| `model.Usage` | `px-input-tokens`, `px-output-tokens` | partial | P1 |
+| `tool.Tool` | tool dispatcher callback, `px-call`, `px-tool-result` | partial | P1 |
+| `event.Event` | `px-event` | partial | P1 |
+| `event.Sink` | event callback program | partial | P1 |
+| `event.FilterSink` | `praxo-event` filter operation | partial | P1 |
+| `event.MultiSink` | `praxo-event` multi operation | partial | P1 |
+| `policy.Hook` | policy callback program, `px-action` | partial | P1 |
+| `policy.Decision` | policy callback status | partial | P1 |
+| `policy.PathChecker` | `praxo-policy`, `praxo-path-normalize` | partial | P1 |
+| `memory.Record` | `px-mem-record` fields | partial | P1 |
+| `memory.Store` | `praxo-memory` | partial | P1 |
+| `checkpoint.Allowlist` | `praxo-checkpoint` | partial | P1 |
+| `agent.Agent` | `praxo-run` | partial | P1 |
+| `agent.Options` | `px-options` | partial | P1 |
+| `agent.Options.AllowedTools` | `px-allowed-tool-count`, `px-allowed-tools` | partial | P2 |
+| `agent.StatusCancelled` | `px-cancel-program`, `AGENT_CANCELLED` | partial | P2 |
+| `agent.Options.OnStream` | `px-stream-program`, `px-stream-part` | partial | P2 |
+| `agent.Options.MaxParallelTools` | `px-tool-batch-program`, `px-max-parallel-tools`, `tool-batch.cpy` | partial | P2 |
+| `agent.Middleware` | `px-before-run-program*`, `px-before-tool-program`, `px-after-run-program*` | partial | P2 |
+| `agent.Result` | `px-result` | partial | P1 |
+| `agent.Session` | `px-session` | partial | P1 |
+| `agent/context.ContextBudget` | `praxo-context` | partial | P1 |
+| `agent/context.EstimateTokens` | `praxo-context` estimate operation | partial | P1 |
+| `agent/stream.StreamPart` | `praxo-stream`, `stream.cpy` | partial | P1 |
+| `toolcall.ParseToolCall` | `praxo-toolcall` parse operation | partial | P1 |
+| `toolcall.ParseInputJSON` | `praxo-toolcall` parse-input operation | partial | P1 |
+| `toolcall.StripToolCallMarkup` | `praxo-toolcall` strip operation | partial | P1 |
+| `tool/jsonschema.Schema` | `praxo-jsonschema`, `praxo-schema-scalar`, `praxo-schema-visit` | partial | P1 |
+| `plugin.ParseManifest` | `praxo-plugin` | partial | P1 |
+| `agent/middleware.CallLimitMiddleware` | `praxo-middleware` call-limit operation | partial | P1 |
+| `agent/middleware.ToolSelectionMiddleware` | `praxo-middleware` tool-selection operation | partial | P1 |
+| `agent/middleware.FallbackModel` | `praxo-middleware` fallback operation | partial | P1 |
+| `agent/middleware.StructuredOutput` | `praxo-middleware` structured operation | partial | P1 |
+| `agent/middleware.PIIMiddleware` | `praxo-middleware` pii and pii-json operations | partial | P1 |
+| `tool.Registry` | `praxo-registry`, `praxo-registry-scoped` | partial | P1 |
+| `agent/hitl.Interrupt` | `praxo-run` interrupt options | parity | P2 |
+| `agent/hitl.InterruptDecision` | `px-interrupt` callback record | parity | P2 |
+| `agent/hitl.InterruptHandler` | `px-interrupt-program` | parity | P2 |
+| `agent.Options.OnInterrupt` | `px-interrupt-program`, `px-interrupt-count` | parity | P2 |
+
+Core-local utilities with no new normative contract symbols:
+`registry-state.cpy` adds caller-owned registry storage in `0.1.2`. The
+original two-parameter entry point retains its shared process-local state.
+`tests/registry-agent.cob` exercises discovery and dispatch through `praxo-run`
+with two independent registries, missing tools, and policy denial. Capacity,
+concurrency, and custom spec-provider limitations remain; this row stays partial.
+`tests/behavior.cob` exercises the `0.2.0` before-run, after-run, and before-tool
+hooks, the final-tool allowlist, reauthorization of changed names or arguments,
+and lifecycle cleanup through `praxo-run`. The `0.3.0` additions cover
+cancellation, stream callback failure, and caller-provided batch tool dispatch;
+`tests/sse.cob` exercises the native SSE parser. Parallel-tool concurrency is
+delegated to the batch dispatcher, so the native test verifies the limit and
+ordered results rather than OS threads.
+
+Other Core-local utilities:
+`praxo-sse` parses server-sent-event text and rejects truncated or half-packet
+streams; it has no direct Go contract symbol. `praxo-json-parse`,
+`praxo-json-generate`, `praxo-json-string`,
+`praxo-json-quote`, `praxo-json-slice`, and `praxo-utf8`. They use the bounded
+records in `language/cobol/copy/json.cpy`; see `language/cobol/README.md` for capacities and local
+statuses. `praxo-agent-vector` and its callback programs live under
+`language/cobol/tests/` and are conformance adapters over `praxo-run`, not public API.

@@ -1,0 +1,48 @@
+{
+  "specVersion": "0.2.0",
+  "kind": "events",
+  "source": "pkg/event and docs/event-schema.md",
+  "event": {
+    "fields": [
+      { "name": "type", "type": "string", "required": true },
+      { "name": "sessionId", "type": "string", "required": true },
+      { "name": "runId", "type": "string", "required": false, "omitempty": true },
+      { "name": "data", "type": "object", "required": false, "omitempty": true },
+      { "name": "at", "type": "string", "format": "date-time", "required": true }
+    ],
+    "notes": [
+      "at is set to UTC when the emitter leaves it zero.",
+      "event.Sink has no retry, delivery, or durability guarantee.",
+      "MultiSink is fail-fast, not best-effort.",
+      "Go reference finalization runs AfterRun validation and repair before OnRunComplete, checkpoint projection, memory write, and the run.completed notification.",
+      "Go OnRunComplete receives a copy of the validated Result; mutating that copy does not rewrite the final result or run identity.",
+      "Go finalizes only middleware entered during startup, including a rejecting BeforeRun callback, and emits no run events on startup rejection. AfterRun errors do not prevent later entered callbacks from cleaning up; the first execution or finalization error remains primary.",
+      "A run.completed sink error is returned to the caller and OnRunError; Go does not attempt run.failed after attempting run.completed because some sinks may already have received completion.",
+      "Checkpoint projection, memory writes, and event delivery are not an atomic transaction."
+    ]
+  },
+  "eventTypes": [
+    { "type": "run.started", "dataKeys": [], "when": "A run enters the governed loop" },
+    { "type": "run.completed", "dataKeys": [], "when": "A run returns successfully" },
+    { "type": "run.failed", "dataKeys": ["error"], "when": "A run returns an error, including policy or approval denial" },
+    { "type": "tool.call", "dataKeys": ["name", "arguments"], "when": "A tool call is about to execute" },
+    { "type": "tool.interrupt", "dataKeys": ["name", "arguments"], "when": "A tool call is waiting for an approval decision" }
+  ],
+  "streamKinds": [
+    { "kind": "values", "meaning": "run-level state snapshot" },
+    { "kind": "updates", "meaning": "incremental state changes" },
+    { "kind": "messages", "meaning": "model messages" },
+    { "kind": "tasks", "meaning": "tool-task lifecycle changes" },
+    { "kind": "debug", "meaning": "internal diagnostics" },
+    { "kind": "checkpoint", "meaning": "durable run checkpoint" }
+  ],
+  "streamPart": {
+    "wire": false,
+    "fields": ["RunID", "SessionID", "Kind", "Step", "Data", "At"],
+    "notes": [
+      "pkg/agent/stream.StreamPart has no JSON tags.",
+      "Only the kind values are frozen for cross-language parity.",
+      "A JSON projection of StreamPart requires a future spec change."
+    ]
+  }
+}
