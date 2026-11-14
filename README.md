@@ -8,6 +8,7 @@ human-in-the-loop approval, checkpoints, events, and tool calling.
 - Registry: Source / CMake
 - Install: `Source build (see README)`
 - Documentation: https://axisvela.github.io/praxo-core/languages/fortran/
+- Examples: https://github.com/axisvela/praxo-core-fortran/tree/main/language/fortran/examples
 - Mirror repository: https://github.com/axisvela/praxo-core-fortran
 - Canonical source: https://github.com/axisvela/praxo-core/tree/main/language/fortran
 - Release index: https://axisvela.github.io/praxo-core/languages/registry-status/
