@@ -1,6 +1,6 @@
 # PRAXO-CORE for Fortran
 
-A native Fortran 2008 agent implementation with source tag `fortran/v0.9.0`. Version `0.6.0` adds cancellation, stream callbacks, a native SSE parser, and caller-provided batch tool dispatch. Version `0.4.0` replaced the bounded ASCII matcher with upstream RE2 through a small C ABI library. The agent loop, JSON, policy, middleware, and human-in-the-loop interrupt decisions remain Fortran, not a bridge to another agent runtime. All 63 normative vectors across eleven groups and native regressions pass locally. Source tags do not imply package-registry publication.
+A native Fortran 2008 agent implementation with source tag `fortran/v0.10.0`. Version `0.6.0` adds cancellation, stream callbacks, a native SSE parser, and caller-provided batch tool dispatch. Version `0.4.0` replaced the bounded ASCII matcher with upstream RE2 through a small C ABI library. The agent loop, JSON, policy, middleware, and human-in-the-loop interrupt decisions remain Fortran, not a bridge to another agent runtime. All 63 normative vectors across eleven groups and native regressions pass locally. Source tags do not imply package-registry publication.
 
 ## At a glance
 
@@ -9,9 +9,9 @@ A native Fortran 2008 agent implementation with source tag `fortran/v0.9.0`. Ver
 | Package | `praxo-core-fortran` |
 | Registry | Source / CMake |
 | Build | Source build (see README) |
-| Source version | `0.9.0` |
+| Source version | `0.10.0` |
 | Published version | not published |
-| Source tag | `fortran/v0.9.0` |
+| Source tag | `fortran/v0.10.0` |
 | Tier | Core |
 | Contract | `SPEC_VERSION` `0.2.0` |
 | Documentation | https://axisvela.github.io/praxo-core/languages/fortran/ |
@@ -52,9 +52,11 @@ Runnable examples live under [`language/fortran/examples`](language/fortran/exam
 | Example | What it shows |
 | --- | --- |
 | [checkpoint](language/fortran/examples/checkpoint) | This example uses the Fortran Core checkpoint allowlist to encode and decode only registered payload types. |
+| [consumer](language/fortran/examples/consumer) | This example runs a deterministic model against the Fortran Core, registers one `record(target)` tool, applies an explicit tool scope plus policy, and checks that an allowed cal... |
 | [event-sink](language/fortran/examples/event-sink) | This example uses the Fortran Core sink composition to fan out lifecycle and tool events and filter the tool-only stream. |
 | [hitl](language/fortran/examples/hitl) | This example demonstrates a write tool that requires human approval: |
 | [identity-policy](language/fortran/examples/identity-policy) | This example binds a trusted principal to policy decisions and rejects missing, inactive, role-mismatched, and tenant-mismatched actions. |
+| [live-model](language/fortran/examples/live-model) | This example connects the Fortran Core to an OpenAI-compatible endpoint through the existing `praxo_openai` adapter and registers one low-risk `get_time(zone)` tool. The model m... |
 | [mcp](language/fortran/examples/mcp) | This example uses a caller-owned in-process transport with the Fortran MCP client. It covers initialize, `tools/list`, and `tools/call` without a server process. |
 | [provider-fallback](language/fortran/examples/provider-fallback) | This example calls a fallback only after the primary fails and preserves the primary failure when both fail. |
 | [retry](language/fortran/examples/retry) | This example retries a transient failure with a bounded attempt count and keeps the exhausted failure state. |
