@@ -37,8 +37,8 @@ This implementation is source-only. Follow the build instructions in [`language/
 | Capability | Status | Detail |
 | --- | --- | --- |
 | OpenAI-compatible model | native (transport seam) | `openai_compatible`; caller supplies HTTP transport |
-| Anthropic model | native (transport seam) | `anthropic_compatible`; caller supplies HTTP transport |
-| Gemini model | native (transport seam) | `gemini_compatible`; caller supplies HTTP transport |
+| Anthropic model | native (transport seam) | `anthropic_compatible`; caller supplies HTTP transport; Anthropic SSE streaming |
+| Gemini model | native (transport seam) | `gemini_compatible`; caller supplies HTTP transport; Gemini SSE streaming |
 | MCP client | native (transport seam) | `mcp_client`; caller supplies transport |
 | Harmovela sink | native (transport seam) | `harmovela`; caller supplies HTTP transport |
 | OpenTelemetry sink | native (transport seam) | `otel_sink`; caller supplies transport |
