@@ -9,9 +9,9 @@ PRAXO-CORE is an embeddable, MIT-licensed agent framework. This package is its n
 | Package | `praxo-core-fortran` |
 | Registry | Source / CMake |
 | Build | Source build (see README) |
-| Source version | `0.10.0` |
+| Source version | `0.11.0` |
 | Published version | not published |
-| Source tag | `fortran/v0.10.0` |
+| Source tag | `fortran/v0.11.0` |
 | Tier | Core |
 | Contract | `SPEC_VERSION` `0.2.0` |
 | Documentation | https://axisvela.github.io/praxo-core/languages/fortran/ |
@@ -22,7 +22,6 @@ PRAXO-CORE is an embeddable, MIT-licensed agent framework. This package is its n
 - OpenAI-compatible model: native (transport seam)
 - Anthropic model: native (transport seam)
 - Gemini model: native (transport seam)
-- Process plugin host: native (C bindings)
 - MCP client: native (transport seam)
 - Harmovela sink: native (transport seam)
 - OpenTelemetry sink: native (transport seam)
@@ -37,10 +36,9 @@ This implementation is source-only. Follow the build instructions in [`language/
 
 | Capability | Status | Detail |
 | --- | --- | --- |
-| OpenAI-compatible model | native (transport seam) | `openai_compatible`; caller supplies HTTP transport |
-| Anthropic model | native (transport seam) | `anthropic_compatible`; caller supplies HTTP transport; Anthropic SSE streaming |
-| Gemini model | native (transport seam) | `gemini_compatible`; caller supplies HTTP transport; Gemini SSE streaming |
-| Process plugin host | native (C bindings) | `plugin_process_start`; JSON-Lines, token auth, health, timeout |
+| OpenAI-compatible model | native (transport seam) | `openai_compatible`; caller supplies HTTP transport; `generate_stream` reassembles SSE content, tool calls, usage, and finish reason |
+| Anthropic model | native (transport seam) | `anthropic_compatible`; caller supplies HTTP transport; `generate_stream` reassembles Anthropic SSE |
+| Gemini model | native (transport seam) | `gemini_compatible`; caller supplies HTTP transport; `generate_stream` reassembles Gemini SSE |
 | MCP client | native (transport seam) | `mcp_client`; caller supplies transport |
 | Harmovela sink | native (transport seam) | `harmovela`; caller supplies HTTP transport |
 | OpenTelemetry sink | native (transport seam) | `otel_sink`; caller supplies transport |
