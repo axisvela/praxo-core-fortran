@@ -12,6 +12,8 @@ PRAXO-CORE is an embeddable, MIT-licensed agent framework. This package is its n
 | Source version | `0.11.0` |
 | Published version | not published |
 | Source tag | `fortran/v0.11.0` |
+| Tutorial tag | `fortran/tutorial/v0.1.0` |
+| Examples tag | `fortran/examples/v0.1.0` |
 | Tier | Core |
 | Contract | `SPEC_VERSION` `0.2.0` |
 | Documentation | https://axisvela.github.io/praxo-core/languages/fortran/ |
@@ -64,6 +66,24 @@ Runnable examples live under [`language/fortran/examples`](language/fortran/exam
 | [session-checkpoint](language/fortran/examples/session-checkpoint) | This example saves and restores a conversation history across two agent turns. It uses the Core allowlist for payload encoding and a teaching in-memory payload. |
 | [streaming](language/fortran/examples/streaming) | This example collects agent stream parts from the Fortran Core and checks the `values` and `messages` lifecycle. |
 | [structured-output](language/fortran/examples/structured-output) | This example validates a final JSON answer against a schema and rejects invalid output. |
+
+## Scenario Tutorials
+
+Scenario-oriented tutorials live under `language/fortran/Tutorial`.
+
+| Path | What it shows |
+| --- | --- |
+| [Tutorial](language/fortran/Tutorial) | Bounded Fortran examples built on the native Core. Each tutorial is a small, runnable slice with explicit non-goals and an application-owned boundary; none is a complete industr... |
+| [dispatch-review](language/fortran/Tutorial/dispatch-review) | Simulates a fixed charge/discharge schedule and checks limits outside the agent. No grid command. |
+| [eda-placement](language/fortran/Tutorial/eda-placement) | Explores a fixed placement grid and reports stated proxy values. No foundry-valid layout or proven PPA optimization. |
+| [fire-spread](language/fortran/Tutorial/fire-spread) | Replays fixed fuel/weather cells and reports a modeled spread. No operational warning or firebreak dispatch. |
+| [leak-localization](language/fortran/Tutorial/leak-localization) | Ranks fixed pressure drops and drafts a review-only inspection. No valve isolation or field dispatch. |
+| [mesh-review](language/fortran/Tutorial/mesh-review) | Compares a fixed mesh descriptor against stated constraints and drafts an assessment. No manufacturability or mechanical certification. |
+| [mining-slope](language/fortran/Tutorial/mining-slope) | Computes fixed displacement indicators and drafts a review alert. No collapse prediction or vehicle dispatch. |
+| [ocean-routing](language/fortran/Tutorial/ocean-routing) | Compares fixed route and weather costs and drafts a route. No navigation, fuel-savings or CII compliance claim. |
+| [pollution-tracing](language/fortran/Tutorial/pollution-tracing) | Compares fixed sensor readings and drafts two investigation hypotheses. No causal or enforcement finding. |
+| [simulation-metrics](language/fortran/Tutorial/simulation-metrics) | A scoped numerical tutorial over the native MIT Fortran Core. It computes fixed simulation metrics through a native tool, then lets a deterministic model package the computed nu... |
+| [weather-anomaly](language/fortran/Tutorial/weather-anomaly) | Computes fixed temperature anomalies and drafts a review-only notice. No operational forecast or warning dispatch. |
 
 ## Verify
 
