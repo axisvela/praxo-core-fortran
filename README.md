@@ -12,8 +12,6 @@ PRAXO-CORE is an embeddable, MIT-licensed agent framework. This package is its n
 | Source version | `0.11.0` |
 | Published version | not published |
 | Source tag | `fortran/v0.11.0` |
-| Tutorial tag | `fortran/tutorial/v0.1.0` |
-| Examples tag | `fortran/examples/v0.1.0` |
 | Tier | Core |
 | Contract | `SPEC_VERSION` `0.2.0` |
 | Documentation | https://axisvela.github.io/praxo-core/languages/fortran/ |
