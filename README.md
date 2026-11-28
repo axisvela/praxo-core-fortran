@@ -1,6 +1,6 @@
 # PRAXO-CORE for Fortran
 
-PRAXO-CORE is an embeddable, MIT-licensed agent framework. This package is its native Fortran 2008 Core: an in-process agent loop with tools, policy, middleware, events, checkpoints, and human-in-the-loop decisions, implemented in Fortran rather than bridged to another runtime.
+PRAXO-CORE (also written praxocore) is an embeddable, MIT-licensed agent framework. PRAXO-CORE is an embeddable, MIT-licensed agent framework. This package is its native Fortran 2008 Core: an in-process agent loop with tools, policy, middleware, events, checkpoints, and human-in-the-loop decisions, implemented in Fortran rather than bridged to another runtime.
 
 ## At a glance
 
@@ -53,11 +53,11 @@ Runnable examples live under [`language/fortran/examples`](language/fortran/exam
 | Example | What it shows |
 | --- | --- |
 | [checkpoint](language/fortran/examples/checkpoint) | This example uses the Fortran Core checkpoint allowlist to encode and decode only registered payload types. |
-| [consumer](language/fortran/examples/consumer) | This example runs a deterministic model against the Fortran Core, registers one `record(target)` tool, applies an explicit tool scope plus policy, and checks that an allowed cal... |
+| [consumer](language/fortran/examples/consumer) | This example runs a deterministic model against the Fortran Core, registers one `record(target)` tool, applies an explicit tool scope plus policy, and checks that an allowed call produces one effect while a denied call produces none. |
 | [event-sink](language/fortran/examples/event-sink) | This example uses the Fortran Core sink composition to fan out lifecycle and tool events and filter the tool-only stream. |
 | [hitl](language/fortran/examples/hitl) | This example demonstrates a write tool that requires human approval: |
 | [identity-policy](language/fortran/examples/identity-policy) | This example binds a trusted principal to policy decisions and rejects missing, inactive, role-mismatched, and tenant-mismatched actions. |
-| [live-model](language/fortran/examples/live-model) | This example connects the Fortran Core to an OpenAI-compatible endpoint through the existing `praxo_openai` adapter and registers one low-risk `get_time(zone)` tool. The model m... |
+| [live-model](language/fortran/examples/live-model) | This example connects the Fortran Core to an OpenAI-compatible endpoint through the existing `praxo_openai` adapter and registers one low-risk `get_time(zone)` tool. The model may only call `get_time`; every other tool call is denied by policy. |
 | [mcp](language/fortran/examples/mcp) | This example uses a caller-owned in-process transport with the Fortran MCP client. It covers initialize, `tools/list`, and `tools/call` without a server process. |
 | [provider-fallback](language/fortran/examples/provider-fallback) | This example calls a fallback only after the primary fails and preserves the primary failure when both fail. |
 | [retry](language/fortran/examples/retry) | This example retries a transient failure with a bounded attempt count and keeps the exhausted failure state. |
@@ -72,7 +72,7 @@ Scenario-oriented tutorials live under `language/fortran/Tutorial`. Planning con
 
 | Path | What it shows |
 | --- | --- |
-| [Tutorial](language/fortran/Tutorial) | Bounded Fortran examples built on the native Core. Each tutorial is a small, runnable slice with explicit non-goals and an application-owned boundary; none is a complete industr... |
+| [Tutorial](language/fortran/Tutorial) | Bounded Fortran examples built on the native Core. Each tutorial is a small, runnable slice with explicit non-goals and an application-owned boundary; none is a complete industry product. |
 | [dispatch-review](language/fortran/Tutorial/dispatch-review) | Simulates a fixed charge/discharge schedule and checks limits outside the agent. No grid command. |
 | [eda-placement](language/fortran/Tutorial/eda-placement) | Explores a fixed placement grid and reports stated proxy values. No foundry-valid layout or proven PPA optimization. |
 | [fire-spread](language/fortran/Tutorial/fire-spread) | Replays fixed fuel/weather cells and reports a modeled spread. No operational warning or firebreak dispatch. |
@@ -81,7 +81,7 @@ Scenario-oriented tutorials live under `language/fortran/Tutorial`. Planning con
 | [mining-slope](language/fortran/Tutorial/mining-slope) | Computes fixed displacement indicators and drafts a review alert. No collapse prediction or vehicle dispatch. |
 | [ocean-routing](language/fortran/Tutorial/ocean-routing) | Compares fixed route and weather costs and drafts a route. No navigation, fuel-savings or CII compliance claim. |
 | [pollution-tracing](language/fortran/Tutorial/pollution-tracing) | Compares fixed sensor readings and drafts two investigation hypotheses. No causal or enforcement finding. |
-| [simulation-metrics](language/fortran/Tutorial/simulation-metrics) | A scoped numerical tutorial over the native MIT Fortran Core. It computes fixed simulation metrics through a native tool, then lets a deterministic model package the computed nu... |
+| [simulation-metrics](language/fortran/Tutorial/simulation-metrics) | A scoped numerical tutorial over the native MIT Fortran Core. It computes fixed simulation metrics through a native tool, then lets a deterministic model package the computed numbers into a review-only report. The metrics and model are fixtures. This tutorial does not read arbitrary data, run model-provided Fortran, install packages, publish a report or call a live model. |
 | [weather-anomaly](language/fortran/Tutorial/weather-anomaly) | Computes fixed temperature anomalies and drafts a review-only notice. No operational forecast or warning dispatch. |
 
 ## Reference Applications
@@ -97,6 +97,11 @@ python language/fortran/run-tests.py
 ```
 
 This mirror contains the language source and the shared `spec/` vectors, so the implementation can be built and tested here. See [`language/fortran/README.md`](language/fortran/README.md) for the exact commands. The monorepo CI runs conformance, API snapshot, and native tests for this implementation.
+
+## Boundaries
+
+Reference application source is not end-to-end portfolio acceptance; follow each README's scope and evidence.
+PRAXO-CORE is not a hosted model, workflow engine, identity provider, or safety controller. Do not infer exactly-once execution, complete sandbox isolation, production security certification, live-provider behavior, or physical safety from this package.
 
 ## Community
 
@@ -127,6 +132,5 @@ This mirror contains the language source and the shared `spec/` vectors, so the 
 
 This repository is a discovery mirror of the canonical Fortran source. The monorepo remains the source of truth and the release workflow source. The mirror's `main` branch tracks current source, not a release snapshot. Source tags refer to the canonical monorepo and are not necessarily present in this mirror; syncing the branch does not publish mirror tags or registry packages.
 
-PRAXO-CORE is not a hosted model, workflow engine, identity provider, or safety controller. Do not infer exactly-once execution, complete sandbox isolation, production security certification, live-provider behavior, or physical safety from this package.
 
 MIT licensed.
